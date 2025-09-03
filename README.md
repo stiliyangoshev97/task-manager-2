@@ -25,6 +25,52 @@ A full-stack MERN (MongoDB, Express, React, Node.js) task manager app with authe
 
 ---
 
+## App Structure (2025 Refactor)
+
+```
+Task Manager 2/
+├── backend/
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   └── taskController.js
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   └── errorHandler.js
+│   ├── models/
+│   │   ├── User.js
+│   │   └── Task.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── tasks.js
+│   ├── server.js
+│   └── ...
+├── frontend/
+│   ├── src/
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   │   ├── Login.jsx
+│   │   │   │   ├── Register.jsx
+│   │   │   │   └── authApi.js
+│   │   │   └── taskManager/
+│   │   │       ├── Dashboard.jsx
+│   │   │       ├── TaskForm.jsx
+│   │   │       ├── TaskItem.jsx
+│   │   │       └── taskApi.js
+│   │   ├── components/        # reusable components (empty)
+│   │   ├── context/
+│   │   │   └── AuthContext.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── pages/                  # empty
+│   ├── services/               # empty
+│   └── ...
+├── info.txt
+├── README.md
+└── ...
+```
+
+---
+
 ## Refactoring Highlights
 - All feature-specific code is organized in `features/` folders
 - API logic split between `taskApi.js` and `authApi.js`
