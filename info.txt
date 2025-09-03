@@ -1,0 +1,129 @@
+# MERN Task Manager - Code Explanation
+
+---
+## Backend
+
+### server.js
+- Main entry point for the backend.
+- Loads environment variables, sets up Express, connects to MongoDB.
+- Configures middleware: JSON body parsing, CORS, error handler.
+- Registers routes for authentication and tasks.
+- In production, serves the frontend build from `frontend/dist`.
+
+### index.js
+- (Unused in current setup, but typically an alternative entry point or legacy file.)
+
+### middleware/
+#### auth.js
+- JWT authentication middleware.
+- Verifies the user's token for protected routes, attaches user info to the request.
+
+#### errorHandler.js
+- Centralized error handling middleware.
+- Catches errors from routes and sends formatted error responses.
+
+### models/
+#### User.js
+- Mongoose schema/model for users.
+- Stores username, email, hashed password.
+- Used for registration and login.
+
+#### Task.js
+- Mongoose schema/model for tasks.
+- Stores task title, description, completion status, and user reference.
+- Used for CRUD operations on tasks.
+
+### routes/
+#### auth.js
+- Handles `/api/auth` routes: registration and login.
+- Validates user input, hashes passwords, generates JWTs.
+
+#### tasks.js
+- Handles `/api/tasks` routes: create, read, update, delete tasks.
+- Uses auth middleware to protect routes.
+- Only allows users to manage their own tasks.
+
+---
+## Frontend (src folder)
+
+### main.jsx
+- Entry point for the React app.
+- Renders the `App` component inside the root DOM node.
+
+### App.jsx
+- Main app component.
+- Sets up React Router routes for register, login, dashboard.
+- Redirects users based on authentication state.
+
+### context/
+#### AuthContext.jsx
+- React context for authentication state.
+- Provides user info and auth functions to the app.
+- Used to check if a user is logged in and to manage login/logout.
+
+### pages/
+#### Register.jsx
+- Registration page and form.
+- Handles user input and calls API to register a new user.
+
+#### Login.jsx
+- Login page and form.
+- Handles user input and calls API to log in.
+
+#### Dashboard.jsx
+- Main dashboard page for logged-in users.
+- Displays user's tasks and provides task management UI.
+
+### components/
+#### TaskForm.jsx
+- Form for adding new tasks.
+- Handles input state and submission.
+
+#### TaskItem.jsx
+- Displays a single task.
+- Handles edit and delete actions for each task.
+
+### services/
+#### api.js
+- Contains functions for making API requests to the backend.
+- Handles registration, login, and task CRUD operations.
+- Centralizes all HTTP requests for maintainability.
+
+---
+## Update: Controllers Refactor
+
+- The backend now uses a `controllers` folder for business logic.
+- Authentication logic (register/login) was moved from route files to `controllers/authController.js`.
+- Route files (like `routes/auth.js`) now only define endpoints and delegate to controllers.
+- This improves code organization, testability, and scalability.
+
+---
+## Update: Task Controller Refactor
+
+- The backend now uses a `taskController.js` in the `controllers` folder for all task CRUD logic.
+- Task routes delegate to controller functions for better separation and maintainability.
+- This matches the pattern used for authentication and improves code organization.
+
+---
+## 2025 Frontend Refactor
+
+- All task manager logic and components are now in `src/features/taskManager/`
+- All authentication logic and components are now in `src/features/auth/`
+- API logic is split between `taskApi.js` (tasks) and `authApi.js` (auth)
+- `src/components/` is reserved for reusable components (currently empty)
+- `src/pages/` and `src/services/` are empty after migration
+- Routing and imports in `App.jsx` updated for new structure
+
+This refactor follows modern React best practices for scalability and maintainability.
+
+---
+## Why This Structure?
+- **Separation of concerns:** Backend handles data and authentication, frontend handles UI and user interaction.
+- **Modular code:** Each file has a single responsibility, making it easier to maintain and extend.
+- **Security:** Auth middleware protects sensitive routes, JWTs are used for stateless authentication.
+- **Scalability:** Models and routes are separated, so new features can be added easily.
+- **Frontend context:** AuthContext provides global state for authentication, so all components can access user info.
+- **Routing:** React Router enables SPA navigation and protects dashboard route for logged-in users only.
+
+---
+Study each file to understand how data flows from the frontend to the backend, how authentication is handled, and how tasks are managed securely and efficiently.

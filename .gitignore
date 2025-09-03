@@ -1,0 +1,41 @@
+# Ignore node modules
+node_modules/
+
+# Ignore environment variables
+.env
+
+# Ignore build output
+/dist/
+/build/
+
+# Ignore logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ignore OS files
+.DS_Store
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore frontend build artifacts
+frontend/dist/
+
+# Ignore backend build artifacts
+backend/dist/
+
+# Ignore coverage reports
+coverage/
+
+# Ignore other temp files
+*.local
+*.log
+
+# Ignore lock files (optional, if you want to keep them out)
+# package-lock.json
+yarn.lock
+
+# Ignore public asset cache
+frontend/public/*.svg
